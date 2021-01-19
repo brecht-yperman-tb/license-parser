@@ -65,8 +65,11 @@ public class MavenLicenseParser {
             Dependency dependency = new Dependency(Dependency.PackageManager.MAVEN, projectName);
             
             JSONObject dependencyJs = dependenciesIterator.next();
-            
-            dependency.setName((String) dependencyJs.get("artifactId"));
+            String groupId = (String) dependencyJs.get("groupId");
+            String artifactId = (String) dependencyJs.get("artifactId");
+            dependency.setName(artifactId);
+
+            dependency.setSource("https://mvnrepository.com/artifact/"+groupId+"/"+artifactId);
             
             Object version = dependencyJs.get("version");
             if (version instanceof Long) {
